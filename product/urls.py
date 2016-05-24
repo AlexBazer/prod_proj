@@ -1,8 +1,7 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from product.views import Products
 
 
-urlpatterns = patterns(
-    '',
-    url(r'products/', Products.as_view())
-)
+urlpatterns = [
+    url(r'products/', Products.as_view(), name='index')
+]
