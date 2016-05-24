@@ -5,4 +5,7 @@ from product.models import Product
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    pass
+    view_on_site = True
+    prepopulated_fields = {
+        'slug': ('name', )
+    }
