@@ -3,9 +3,33 @@
     <head>
         <meta charset="utf-8">
         <title></title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
     </head>
     <body>
-        <h1>Hello from products page!</h1>
-        {{object_list}}
+        <h1>Products</h1>
+        <section>
+            <div class="container">
+                <table class="table">
+                    <thead>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                    </thead>
+                    <tbody>
+                        {% for product in object_list %}
+                        <tr>
+                            <td><a href="#">{{product.name}}</a></td>
+                            <td>{{product.description}}</td>
+                            <td>{{product.price}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </body>
 </html>
