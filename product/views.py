@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from django.views.generic import View
+from django.views.generic import View, ListView
+
+from product.models import Product
 
 
-class Products(View):
+class Products(ListView):
     template_name = 'product/products.html'
-
-    def get(self, request):
-        return render(request, self.template_name)
+    model = Product
+    paginate_by = 10
