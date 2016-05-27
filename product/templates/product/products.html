@@ -22,7 +22,7 @@
                     <tbody>
                         {% for product in object_list %}
                         <tr>
-                            <td><a href="#">{{product.name}}</a></td>
+                            <td><a href="{% url 'product:product_item' slug=product.slug %}">{{product.name}}</a></td>
                             <td>{{product.description}}</td>
                             <td>{{product.price}}</td>
                         </tr>
