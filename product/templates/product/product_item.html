@@ -6,7 +6,15 @@
             <h1>{{ object.name }}</h1>
             <p>
                 {{ object.description }}
-            </p>            
+            </p>
+            <h4>LikeForm</h4>
+            <form class="" action="index.html" method="post">
+                {{form_like}}
+            </form>
+            <h4>CommentForm</h4>
+            <form class="" action="index.html" method="post">
+                {{form_comment}}
+            </form>
         </div>
     </section>
 {% endblock %}

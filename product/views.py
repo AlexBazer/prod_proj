@@ -1,7 +1,9 @@
-from django.shortcuts import render
-from django.views.generic import View, ListView, DetailView
+from django.shortcuts import render, redirect
+from django.views.generic import View, ListView, DetailView, TemplateView
 
 from product.models import Product
+from comment.forms import CommentForm
+from like.forms import LikeForm
 
 
 class Products(ListView):
@@ -13,3 +15,27 @@ class Products(ListView):
 class ProductItem(DetailView):
     template_name = 'product/product_item.html'
     model = Product
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductItem, self).get_context_data(**kwargs)
+        context['form_comment'] = CommentForm()
+        context['form_like'] = LikeForm()
+
+        return context
+
+    def post(self, request):
+        context = self.get_context_data()
+        form_names = [
+            ('form_comment', CommentForm),
+            ('form_like', LikeForm)
+        ]
+
+        for form_name, form in form_names:
+            if form_name not in request.POST:
+                continue
+            context[form_name] = form(request.POST)
+            if context[form_name].is_valid():
+                return redirect('product:product_item', slug=self.object.slug)
+            return render(self.template_name, context)
+
+        return self.http_method_not_allowed(request)
