@@ -8,6 +8,9 @@ class ProductsTest(TestCase):
     def setUp(self):
         self.client = Client()
 
-    def test_(self):
+    def test_products_page(self):
         response = self.client.get(reverse('product:index'))
+
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed('product/products.html')
+        self.assertEqual(len(response.context['object_list']), 10)
