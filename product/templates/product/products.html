@@ -1,52 +1,42 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title></title>
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+{% extends "base.html" %}
 
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-    </head>
-    <body>
-        <h1>Products</h1>
-        <section>
-            <div class="container">
-                <table class="table">
-                    <thead>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                    </thead>
-                    <tbody>
-                        {% for product in object_list %}
-                        <tr>
-                            <td><a href="{% url 'product:product_item' slug=product.slug %}">{{product.name}}</a></td>
-                            <td>{{product.description}}</td>
-                            <td>{{product.price}}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </section>
-        <section>
-            <div class="container">
-                <ul class="pager">
-                    {% if page_obj.has_previous %}
-                       <li><a href="{% url 'product:index' %}?page={{page_obj.previous_page_number}}">Previous</a></li>
-                    {% else %}
-                       <li class="disabled"><a>Previous</a></li>
-                    {% endif %}
-                        <li>{{page_obj.number}} of {{page_obj.end_index}}</li>
-                    {% if page_obj.has_next %}
-                       <li><a href="{% url 'product:index' %}?page={{page_obj.next_page_number}}">Next</a></li>
-                    {% else %}
-                       <li class="disabled"><a href="#">Previous</a></li>
-                    {% endif %}
-                 </ul>
-            </div>
-        </section>
-    </body>
-</html>
+{% block content %}
+    <section>
+        <div class="container">
+            <h1>Products</h1>
+            <table class="table">
+                <thead>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                </thead>
+                <tbody>
+                    {% for product in object_list %}
+                    <tr>
+                        <td><a href="{% url 'product:product_item' slug=product.slug %}">{{product.name}}</a></td>
+                        <td>{{product.description}}</td>
+                        <td>{{product.price}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <ul class="pager">
+                {% if page_obj.has_previous %}
+                <li><a href="{% url 'product:index' %}?page={{page_obj.previous_page_number}}">Previous</a></li>
+                {% else %}
+                <li class="disabled"><a>Previous</a></li>
+                {% endif %}
+                <li>{{page_obj.number}} of {{page_obj.end_index}}</li>
+                {% if page_obj.has_next %}
+                <li><a href="{% url 'product:index' %}?page={{page_obj.next_page_number}}">Next</a></li>
+                {% else %}
+                <li class="disabled"><a href="#">Previous</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </section>
+{% endblock %}
