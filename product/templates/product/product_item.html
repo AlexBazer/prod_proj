@@ -7,12 +7,14 @@
             <p>
                 {{ object.description }}
             </p>
-            <h4>LikeForm now here is {{likes_count|default:'No likes at all'}}</h4>
-            <form class="" method="post">
-                {% csrf_token %}
-                {{form_like}}
-                <input type="submit" name="form_like"/>
-            </form>
+            <h4>Likes {{likes_count|default:'No likes at all'}}</h4>
+            {% if user.is_authenticated %}
+                <form class="" method="post">;
+                    {% csrf_token %}
+                    {{form_like}}
+                    <input type="submit" name="form_like"/>
+                </form>
+            {% endif %}
             <div class="comments">
                 {% for comment in comments %}
                     <h5>{{comment.created_at}}</h5>
