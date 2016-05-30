@@ -21,5 +21,5 @@ class ProductsTest(TestCase):
         }, follow=True)
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed('product/products.html')
+        self.assertTemplateUsed(response, 'product/product_item.html')
         self.assertIn(msg, response.content)
