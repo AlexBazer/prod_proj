@@ -34,7 +34,9 @@ class ProductItem(DetailView):
                 'product': self.object.id
             }
         )
-        context['comments'] = Comment.objects.all()
+        context['comments'] = Comment.objects.filter(product=self.object)
+
+        context['likes_count'] = Like.objects.filter(product=self.object).count()
 
         return context
 
