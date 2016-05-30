@@ -17,13 +17,23 @@ class ProductItem(DetailView):
     model = Product
 
     def get_context_data(self, **kwargs):
+        """Add  CommentForm and LikeForm to context"""
+
+        self.object = self.get_object()
         context = super(ProductItem, self).get_context_data(**kwargs)
         context['form_comment'] = CommentForm()
-        context['form_like'] = LikeForm()
+        context['form_like'] = LikeForm(
+            initial={
+                'user': self.request.user.id,
+                'product': self.object.id
+            }
+        )
 
         return context
 
-    def post(self, request):
+    def post(self, request, slug):
+        """Handle Like and Comment forms"""
+
         context = self.get_context_data()
         form_names = [
             ('form_comment', CommentForm),
@@ -36,6 +46,7 @@ class ProductItem(DetailView):
             context[form_name] = form(request.POST)
             if context[form_name].is_valid():
                 return redirect('product:product_item', slug=self.object.slug)
-            return render(self.template_name, context)
+            print context
+            return render(request, self.template_name, context)
 
         return self.http_method_not_allowed(request)
