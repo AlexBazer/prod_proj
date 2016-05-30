@@ -42,15 +42,14 @@ class ProductItem(DetailView):
 
     def post(self, request, slug):
         """Handle Like and Comment forms"""
-
         context = self.get_context_data()
         form_names = [
-            ('form_comment', CommentForm),
-            ('form_like', LikeForm)
+            ('form_comment', CommentForm, True),
+            ('form_like', LikeForm, request.user.is_authenticated())
         ]
 
-        for form_name, form in form_names:
-            if form_name not in request.POST:
+        for form_name, form, login_pass in form_names:
+            if form_name not in request.POST or not login_pass:
                 continue
             context[form_name] = form(request.POST)
             if context[form_name].is_valid():
