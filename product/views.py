@@ -21,7 +21,11 @@ class ProductItem(DetailView):
 
         self.object = self.get_object()
         context = super(ProductItem, self).get_context_data(**kwargs)
-        context['form_comment'] = CommentForm()
+        context['form_comment'] = CommentForm(
+            initial={
+                'product': self.object.id
+            }
+        )
         context['form_like'] = LikeForm(
             initial={
                 'user': self.request.user.id,
@@ -46,7 +50,6 @@ class ProductItem(DetailView):
             context[form_name] = form(request.POST)
             if context[form_name].is_valid():
                 return redirect('product:product_item', slug=self.object.slug)
-            print context
             return render(request, self.template_name, context)
 
         return self.http_method_not_allowed(request)

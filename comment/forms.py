@@ -1,8 +1,11 @@
-from django.forms import ModelForm
+from django import forms
 from comment.models import Comment
 
 
-class CommentForm(ModelForm):
+class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = '__all__'
+        widgets = {
+            'product': forms.HiddenInput()
+        }

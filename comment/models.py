@@ -5,6 +5,7 @@ from django.utils.translation import gettext as _
 
 from product.models import Product
 
+
 class Comment(models.Model):
     message = models.TextField(_('Message'))
     product = models.ForeignKey(
