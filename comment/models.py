@@ -17,3 +17,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return created_at.isoformat()
+
+    class Meta:
+        ordering = ['-created_at', ]

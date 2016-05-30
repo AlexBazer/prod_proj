@@ -13,11 +13,19 @@
                 {{form_like}}
                 <input type="submit" name="form_like"/>
             </form>
+            <div class="comments">
+                {% for comment in comments %}
+                    <h5>{{comment.created_at}}</h5>
+                    <p>
+                        {{comment.message}}
+                    </p>
+                {% endfor %}
+            </div>
             <h4>CommentForm</h4>
-            <form class="" action="index.html" method="post">
+            <form class="" method="post">
                 {% csrf_token %}
                 {{form_comment}}
-                <input type="submit" name="form_comment"/>                
+                <input type="submit" name="form_comment"/>
             </form>
         </div>
     </section>

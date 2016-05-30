@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.views.generic import View, ListView, DetailView, TemplateView
 
 from product.models import Product
+from comment.models import Comment
+from like.models import Like
 from comment.forms import CommentForm
 from like.forms import LikeForm
 
@@ -17,7 +19,7 @@ class ProductItem(DetailView):
     model = Product
 
     def get_context_data(self, **kwargs):
-        """Add  CommentForm and LikeForm to context"""
+        """Add CommentForm and LikeForm, Comments and Like counter to  the context"""
 
         self.object = self.get_object()
         context = super(ProductItem, self).get_context_data(**kwargs)
@@ -32,6 +34,7 @@ class ProductItem(DetailView):
                 'product': self.object.id
             }
         )
+        context['comments'] = Comment.objects.all()
 
         return context
 
@@ -49,6 +52,7 @@ class ProductItem(DetailView):
                 continue
             context[form_name] = form(request.POST)
             if context[form_name].is_valid():
+                context[form_name].save()
                 return redirect('product:product_item', slug=self.object.slug)
             return render(request, self.template_name, context)
 
