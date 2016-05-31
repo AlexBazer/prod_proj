@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.views.generic import View, ListView, DetailView, TemplateView
 from django.utils.translation import gettext as _
 from django.utils import timezone
+from django.db.models import Count
 
 from product.models import Product
 from comment.models import Comment
@@ -34,6 +35,17 @@ class Products(ListView):
     template_name = 'product/products.html'
     model = Product
     paginate_by = 10
+
+    def get_queryset(self):
+        """Add ordering elements by likes"""
+
+        queryset = self.model.objects.annotate(likes=Count('like'))
+        if self.request.GET.get('likes') == 'desc':
+            queryset = queryset.order_by('-likes')
+        elif self.request.GET.get('likes') == 'asc':
+            queryset = queryset.order_by('likes')
+
+        return queryset
 
 
 class ProductItem(DetailView):
