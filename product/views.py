@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.views.generic import View, ListView, DetailView, TemplateView
 from django.utils.translation import gettext as _
+from django.utils import timezone
 
 from product.models import Product
 from comment.models import Comment
@@ -9,6 +10,7 @@ from like.models import Like
 from comment.forms import CommentForm
 from like.forms import LikeForm
 
+from datetime import timedelta
 from collections import namedtuple
 
 """ Form handler to be user with other forms in one view
@@ -26,6 +28,7 @@ ViewForm = namedtuple('ViewForm', (
     'auth_pass',
     'success_msg'
 ))
+
 
 class Products(ListView):
     template_name = 'product/products.html'
@@ -65,7 +68,9 @@ class ProductItem(DetailView):
             'user': self.request.user.id, 'product': self.object.id}
         )
 
-        context['comments'] = Comment.objects.filter(product=self.object)
+        context['comments'] = Comment.objects.filter(
+            product=self.object, created_at__gte=timezone.now()-timedelta(days=1)
+        )
 
         context['likes_count'] = Like.objects.filter(product=self.object).count()
 

@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils.translation import gettext as _
+from django.utils import timezone
 
 from product.models import Product
 
@@ -12,7 +13,7 @@ class Comment(models.Model):
         Product,
         on_delete=models.CASCADE
     )
-    created_at = models.DateTimeField(_('Created time'), auto_now_add=True)
+    created_at = models.DateTimeField(_('Created time'), default=timezone.now)
     modified_at = models.DateTimeField(_('Modified time'), auto_now=True)
 
     def __unicode__(self):
