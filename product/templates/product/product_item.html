@@ -10,10 +10,11 @@
     {% endif %}
     <section>
         <div class="container">
-            <h1>{{ object.name }}</h1>
-            <p>
-                {{ object.description }}
-            </p>
+
+            <div class="jumbotron">
+                <h1>{{ object.name }}</h1>
+                <p class="text-justify">{{ object.description }}</p>
+            </div>
             <h4>Likes {{likes_count|default:'No likes at all'}}</h4>
             {% if can_like %}
                 <form class="" method="post">;
@@ -22,20 +23,30 @@
                     <input type="submit" name="form_like"/>
                 </form>
             {% endif %}
+        </div>
+    </section>
+    <section>
+        <div class="container">
             <div class="comments">
                 {% for comment in comments %}
-                    <h5>{{comment.created_at}}</h5>
-                    <p>
-                        {{comment.message}}
-                    </p>
+                <div class="panel panel-default">
+                    <div class="panel-heading">{{comment}}</div>
+                    <div class="panel-body">{{comment.message}}</div>
+                </div>
                 {% endfor %}
             </div>
-            <h4>CommentForm</h4>
-            <form class="" method="post">
-                {% csrf_token %}
-                {{form_comment}}
-                <input type="submit" name="form_comment"/>
-            </form>
+            <div class="panel panel-default">
+                <div class="panel-heading">CommentForm</div>
+                <div class="panel-body">
+                    <form class="" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{form_comment}}
+                        </div>
+                        <input  class="btn btn-default push-right" type="submit" name="form_comment"/>
+                    </form>
+                </div>
+            </div>
         </div>
     </section>
 {% endblock %}

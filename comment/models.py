@@ -16,7 +16,7 @@ class Comment(models.Model):
     modified_at = models.DateTimeField(_('Modified time'), auto_now=True)
 
     def __str__(self):
-        return created_at.isoformat()
+        return self.created_at.isoformat()
 
     class Meta:
         ordering = ['-created_at', ]

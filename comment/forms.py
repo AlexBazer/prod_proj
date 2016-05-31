@@ -7,5 +7,6 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = '__all__'
         widgets = {
+            'message': forms.Textarea(attrs={'class': 'form-control'}),
             'product': forms.HiddenInput()
         }
