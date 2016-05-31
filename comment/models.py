@@ -13,7 +13,7 @@ class Comment(models.Model):
         Product,
         on_delete=models.CASCADE
     )
-    created_at = models.DateTimeField(_('Created time'), default=timezone.now)
+    created_at = models.DateTimeField(_('Created time'), default=timezone.now, blank=True)
     modified_at = models.DateTimeField(_('Modified time'), auto_now=True)
 
     def __unicode__(self):

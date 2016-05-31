@@ -34,6 +34,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Comment product</div>
                 <div class="panel-body">
+                    {{form_comment.errors}}
                     <form class="" action="#form_comment" method="post">
                         {% csrf_token %}
                         <div class="form-group">
