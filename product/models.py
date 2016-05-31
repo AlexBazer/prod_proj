@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.core.urlresolvers import reverse
 from django.utils.translation import gettext as _
 
 
@@ -11,6 +12,9 @@ class Product(models.Model):
     price = models.DecimalField(_('Price'), decimal_places=2, max_digits=10)
     created_at = models.DateTimeField(_('Created time'), auto_now_add=True)
     modified_at = models.DateTimeField(_('Modified time'), auto_now=True)
+
+    def get_absolute_url(self):
+        return reverse('product:product_item', kwargs={'slug': self.slug})
 
     def __unicode__(self):
         return self.name

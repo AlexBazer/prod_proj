@@ -16,7 +16,7 @@ class Like(models.Model):
         on_delete=models.CASCADE
     )
 
-    def __str__(self):
+    def __unicode__(self):
         return 'use {username} likes "{product_name}"'.format(
             username=self.user.username,
             product_name=self.product.name

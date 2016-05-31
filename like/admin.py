@@ -5,4 +5,4 @@ from like.models import Like
 
 @admin.register(Like)
 class LikeAdmin(admin.ModelAdmin):
-    pass
+    view_on_site = True
