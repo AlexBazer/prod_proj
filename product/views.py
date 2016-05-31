@@ -71,7 +71,7 @@ class ProductItem(DetailView):
 
         context['can_like'] = (
             self.request.user.is_authenticated() and
-            Like.objects.filter(product=self.object, user=self.request.user)
+            not Like.objects.filter(product=self.object, user=self.request.user)
         )
 
         return context

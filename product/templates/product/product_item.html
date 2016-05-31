@@ -23,15 +23,19 @@
             <div class="jumbotron">
                 <h1>{{ object.name }}</h1>
                 <p class="text-justify">{{ object.description }}</p>
-            </div>
-            <h4>Likes {{likes_count|default:'No likes at all'}}</h4>
-            {% if can_like %}
-                <form class="" method="post">;
+                <form class="" method="post">
                     {% csrf_token %}
                     {{form_like}}
-                    <input type="submit" name="form_like"/>
+                    <button
+                        class="pull-right btn {% if can_like %}btn-primary{% else %}btn-success{% endif %}"
+                        type="submit"
+                        name="form_like"
+                        {% if not can_like %}disabled{% endif %}
+                    >
+                        Likes <span class="badge">{{likes_count}}</span>
+                    </button>
                 </form>
-            {% endif %}
+            </div>
         </div>
     </section>
     <section>
