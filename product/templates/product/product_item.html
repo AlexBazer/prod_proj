@@ -9,17 +9,8 @@
 {% endblock %}
 
 {% block content %}
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-
     <section>
         <div class="container">
-
             <div class="jumbotron">
                 <h1>{{ object.name }}</h1>
                 <p class="text-justify">{{ object.description }}</p>
