@@ -30,7 +30,21 @@
         </div>
     </section>
     <section>
-        <div class="container">
+        <div class="container" id="form_comment">
+            <div class="panel panel-default">
+                <div class="panel-heading">Comment product</div>
+                <div class="panel-body">
+                    <form class="" action="#form_comment" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {% include "messages.html" with messages=form_comment.message.errors status="danger"%}
+                            {{form_comment.product}}
+                            {{form_comment.message}}
+                        </div>
+                        <input  class="btn btn-default push-right" type="submit" name="form_comment"/>
+                    </form>
+                </div>
+            </div>
             <div class="comments">
                 {% for comment in comments %}
                 <div class="panel panel-default">
@@ -38,18 +52,6 @@
                     <div class="panel-body">{{comment.message}}</div>
                 </div>
                 {% endfor %}
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">Comment product</div>
-                <div class="panel-body">
-                    <form class="" method="post">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            {{form_comment}}
-                        </div>
-                        <input  class="btn btn-default push-right" type="submit" name="form_comment"/>
-                    </form>
-                </div>
             </div>
         </div>
     </section>
