@@ -8,7 +8,7 @@
                 {{ object.description }}
             </p>
             <h4>Likes {{likes_count|default:'No likes at all'}}</h4>
-            {% if user.is_authenticated %}
+            {% if can_like %}
                 <form class="" method="post">;
                     {% csrf_token %}
                     {{form_like}}

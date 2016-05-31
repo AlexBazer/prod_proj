@@ -19,7 +19,10 @@ class ProductItem(DetailView):
     model = Product
 
     def get_context_data(self, **kwargs):
-        """Add CommentForm and LikeForm, Comments and Like counter to  the context"""
+        """Populate context
+
+        Add CommentForm, LikeForm, comments, like counter, can_like to  the context
+        """
 
         self.object = self.get_object()
         context = super(ProductItem, self).get_context_data(**kwargs)
@@ -38,17 +41,27 @@ class ProductItem(DetailView):
 
         context['likes_count'] = Like.objects.filter(product=self.object).count()
 
+        context['can_like'] = (
+            self.request.user.is_authenticated() and
+            Like.objects.filter(product=self.object, user=self.request.user)
+        )
+
         return context
 
     def post(self, request, slug):
         """Handle Like and Comment forms"""
+
         context = self.get_context_data()
-        form_names = [
+
+        # Forms with template names than can be handled
+        # (<form name>, <formClass>, <login pass flag>)
+        forms = [
             ('form_comment', CommentForm, True),
             ('form_like', LikeForm, request.user.is_authenticated())
         ]
 
-        for form_name, form, login_pass in form_names:
+        # go through forms and handle one in post was from it
+        for form_name, form, login_pass in forms:
             if form_name not in request.POST or not login_pass:
                 continue
             context[form_name] = form(request.POST)

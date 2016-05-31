@@ -9,8 +9,9 @@ class ProductsTest(TestCase):
         self.client = Client()
 
     def test_products_page(self):
+        # Add test on num of pages
         response = self.client.get(reverse('product:index'))
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed('product/products.html')
+        self.assertTemplateUsed(response, 'product/products.html')
         self.assertEqual(len(response.context['object_list']), 10)
