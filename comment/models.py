@@ -16,7 +16,10 @@ class Comment(models.Model):
     modified_at = models.DateTimeField(_('Modified time'), auto_now=True)
 
     def __str__(self):
-        return self.created_at.isoformat()
+        return 'comment for product "{0}" was added at {1}'.format(
+            self.product.name,
+            self.created_at
+        )
 
     class Meta:
         ordering = ['-created_at', ]

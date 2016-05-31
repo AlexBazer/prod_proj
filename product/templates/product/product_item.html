@@ -39,7 +39,7 @@
             <div class="comments">
                 {% for comment in comments %}
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{comment}}</div>
+                    <div class="panel-heading">{{comment.created_at}}</div>
                     <div class="panel-body">{{comment.message}}</div>
                 </div>
                 {% endfor %}
