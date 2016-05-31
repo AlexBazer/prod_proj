@@ -21,7 +21,7 @@ class Comment(models.Model):
     )
     modified_at = models.DateTimeField(_('Modified time'), auto_now=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return 'comment for product "{0}" was added at {1}'.format(
             self.product.name,
             self.created_at

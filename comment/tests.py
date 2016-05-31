@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django.test import TestCase, Client
 from django.core.urlresolvers import reverse
 from django.utils import timezone
@@ -38,6 +40,4 @@ class ProductsTest(TestCase):
         )
         response = self.client.get(reverse('product:product_item', kwargs={'slug': product.slug}))
 
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'product/product_item.html')
         self.assertNotIn(msg, response.content)
